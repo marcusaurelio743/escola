@@ -8,7 +8,7 @@ import javax.persistence.EntityTransaction;
 import util.HibernateUtil;
 
 public class DaoGeneric <E>{
-private EntityManager entityManager = HibernateUtil.getenEntityManager();
+protected EntityManager entityManager = HibernateUtil.getenEntityManager();
 	
 	
 	public void salvar(E entidade) {
