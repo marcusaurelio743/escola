@@ -9,6 +9,12 @@
                 <b:navLink value="Inicial" href="principal.jsf"></b:navLink>
                 <b:navLink value="cadastrar Alunos" href="alunos.jsf"></b:navLink>
                 <b:navCommandLink value="sair" action="#{beanlogin.deslogar}"/>
+                
+                <b:dropMenu value="configurações Dados" >
+	               	 <b:navCommandLink value="sexo" href="sexo.jsf"/>
+	               	 <b:navCommandLink value="turmas" href="turma.jsf"/>
+                </b:dropMenu>
+                
             </b:navbarLinks>
         </b:navBar>
 

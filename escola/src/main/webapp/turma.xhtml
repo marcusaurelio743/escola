@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui = "http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Project Name</title>
+        <meta name="author" content="The Author"></meta>
+    </h:head>
+    <h:body style="padding: 60px;">
+        <ui:include src="/menu.xhtml"></ui:include>
+        <b:container>
+           <h:form id="formTurma">
+               		<b:panel title="Cadastro de turmas" look="primary" style=" margin-top:20px;">
+               		
+               		<b:column>
+							<h:outputText value="ID:" />
+							<b:inputText  readonly="true" value="#{beanSexo.sexo.id}"/>
+						</b:column>
+						
+						<b:column>
+							<h:outputText value="turma"/> 
+							<b:inputText  required="true" required-message="Informe a turma" value="#{beanSexo.sexo.sexo}"/>
+						</b:column>
+						
+						<b:column >
+							
+							<b:commandButton  value="Novo" look="primary"   action="#{beanSexo.Novo}"/>
+							
+							<b:commandButton value="Salvar" look="success" action="#{beanSexo.Salvar}"/>
+							<b:commandButton value="Deletar" look="danger" action="#{beanSexo.Deletar}"/>
+							
+							
+						
+						</b:column>
+               		</b:panel>
+           
+           </h:form>
+           
+        </b:container>
+
+    </h:body>
+</html>
