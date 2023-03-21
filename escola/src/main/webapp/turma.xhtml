@@ -17,20 +17,20 @@
                		
                		<b:column>
 							<h:outputText value="ID:" />
-							<b:inputText  readonly="true" value="#{beanSexo.sexo.id}"/>
+							<b:inputText  readonly="true" value="#{beanTurma.turma.id}"/>
 						</b:column>
 						
 						<b:column>
 							<h:outputText value="turma"/> 
-							<b:inputText  required="true" required-message="Informe a turma" value="#{beanSexo.sexo.sexo}"/>
+							<b:inputText  required="true" required-message="Informe a turma" value="#{beanTurma.turma.turma}"/>
 						</b:column>
 						
 						<b:column >
 							
-							<b:commandButton  value="Novo" look="primary"   action="#{beanSexo.Novo}"/>
+							<b:commandButton  value="Novo" look="primary"   action="#{beanTurma.Novo}"/>
 							
-							<b:commandButton value="Salvar" look="success" action="#{beanSexo.Salvar}"/>
-							<b:commandButton value="Deletar" look="danger" action="#{beanSexo.Deletar}"/>
+							<b:commandButton value="Salvar" look="success" action="#{beanTurma.Salvar}"/>
+							<b:commandButton value="Deletar" look="danger" action="#{beanTurma.Deletar}"/>
 							
 							
 						
@@ -38,6 +38,38 @@
                		</b:panel>
            
            </h:form>
+           
+           <br/>
+		 <br/>
+		 <br/>
+               
+               <h:form>
+               	<b:dataTable value="#{beanTurma.turmas}" var="turma">
+               	
+               	<b:column>
+		 			<f:facet name="header">ID</f:facet>
+		 			<h:outputText value="#{turma.id}"/>
+		 			
+		 		</b:column>
+		 		
+		 		<b:column>
+		 			<f:facet name="header">Turma</f:facet>
+		 			<h:outputText value="#{turma.turma}"/>
+		 			
+		 		</b:column>
+		 		
+		 		<h:column>
+		 			<f:facet name="header">Editar</f:facet>
+		 			<b:commandButton value="Editar" look="primary"  >
+		 				
+		 				<f:setPropertyActionListener value="#{turma}" target="#{beanTurma.turma}"/>
+		 			</b:commandButton>
+		 		</h:column>
+               	
+               	
+               	</b:dataTable>
+               
+               </h:form>
            
         </b:container>
 

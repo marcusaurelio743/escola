@@ -3,6 +3,7 @@
 	<persistence-unit name="escola-es">
 	<class>model.Login</class>
 	<class>model.Sexo</class>
+	<class>model.Turma</class>
 	
 	
 	<properties>
