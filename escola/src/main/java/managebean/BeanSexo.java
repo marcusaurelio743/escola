@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import Dao.daoSexo;
 import model.Sexo;
@@ -38,6 +40,7 @@ public class BeanSexo {
 	public String Salvar() {
 		sexo = daoSexo.updadeMerge(sexo);
 		sexos.add(sexo);
+		this.mostrarMsg("registro Salvo com sucesso!!!");
 		return "";
 	}
 	
@@ -45,11 +48,19 @@ public class BeanSexo {
 		daoSexo.deleteById(sexo);
 		sexos.remove(sexo);
 		this.Novo();
+		this.mostrarMsg("Registro deletado!!");
 		return "";
 	}
 	public String Novo() {
 		sexo = new Sexo();
 		return "";
+	}
+	
+	private void mostrarMsg(String msg) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage message = new FacesMessage(msg);
+		context.addMessage(msg, message);
+		
 	}
 
 }

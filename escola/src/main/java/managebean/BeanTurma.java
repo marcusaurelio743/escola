@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import Dao.daoTurma;
 import model.Turma;
@@ -45,14 +47,22 @@ public class BeanTurma {
 	public String Salvar() {
 		turma = daoTurma.updadeMerge(turma);
 		turmas.add(turma);
+		this.mostrarMsg("registro Salvo com sucesso!!!");
 		return "";
 	}
 	public String Deletar() throws Exception {
 		daoTurma.deleteById(turma);
 		turmas.remove(turma);
 		this.Novo();
-		
+		this.mostrarMsg("registro Deletado!!!");
 		return "";
+	}
+	
+	private void mostrarMsg(String msg) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage message = new FacesMessage(msg);
+		context.addMessage(msg, message);
+		
 	}
 	
 
