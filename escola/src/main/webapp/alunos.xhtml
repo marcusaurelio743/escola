@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui = "http://java.sun.com/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui">
     <h:head>
@@ -12,8 +13,102 @@
         <ui:include src="/menu.xhtml"></ui:include>
         <b:container>
             <b:jumbotron>
-                <h1>cadastro de alunos</h1>
-                <p> criar formulario de cadastro</p>
+                <b:messages  autoUpdate="true" id="msg"/>
+               <h:form id="formAluno">
+               		<b:panel title="Cadastro de Aluno" look="primary" style=" margin-top:20px;">
+               		
+		               	<b:column>
+							<h:outputText value="ID:" />
+							<b:inputText  readonly="true" value="#{beanAluno.aluno.id}"/>
+						</b:column>
+						
+						<b:column>
+							<h:outputText value="Nome"/>
+							<b:inputText  required="true"  value="#{beanAluno.aluno.nome}"/>
+						</b:column>
+						
+						<b:column>
+							<h:outputText value="Nome do Pai"/>
+							<b:inputText  required="true"  value="#{beanAluno.aluno.pai}"/>
+						</b:column>
+						
+						<b:column>
+							<h:outputText value="Nome da Mãe"/>
+							<b:inputText  required="true"  value="#{beanAluno.aluno.mae}"/>
+						</b:column>
+						
+						<b:column>
+							<h:outputText value="CPF do responsavel"/>
+							<b:inputText  required="true"  value="#{beanAluno.aluno.cpfResponsavel}"/>
+						</b:column>
+						
+						<b:column>
+							<h:outputText value="Naturalidade"/>
+							<b:inputText  required="true"  value="#{beanAluno.aluno.naturalidade}"/>
+						</b:column>
+						
+						<b:column>
+							<b:selectOneMenu value="#{beanAluno.idSexo}"  label="Informe o sexo">
+            
+            				<f:selectItems value="#{beanAluno.sexos}" var="sexo" itemValue="#{sexo.id}" itemLabel="#{sexo.sexo}" /> 
+        				</b:selectOneMenu>
+						</b:column>
+						
+						<b:column>
+							<h:outputText value="Data de nascimento"/>
+							<b:dateTimePicker format="DD/MM/YYYY" locale="en"    value="#{beanAluno.aluno.dataNascimento}"/>
+						</b:column>
+						
+						<b:column>
+							<b:selectOneMenu value="#{beanAluno.idTurma}"  label="Informe a turma">
+            
+            					<f:selectItems value="#{beanAluno.turmas}" var="turma" itemValue="#{turma.id}" itemLabel="#{turma.turma}" /> 
+        					</b:selectOneMenu>
+        				</b:column>
+						
+						<b:column>
+							<h:outputText value="CEP"/>
+							<b:inputText  required="true"  value="#{beanAluno.aluno.cep}"/>
+						</b:column>
+						
+						<b:column>
+							<h:outputText value="Logradouro"/>
+							<b:inputText  required="true"  value="#{beanAluno.aluno.logradouro}"/>
+						</b:column>
+						
+						<b:column>
+							<h:outputText value="Complemento"/>
+							<b:inputText  required="true"  value="#{beanAluno.aluno.complemento}"/>
+						</b:column>
+						
+						<b:column>
+							<h:outputText value="Bairro"/>
+							<b:inputText  required="true"  value="#{beanAluno.aluno.bairro}"/>
+						</b:column>
+						
+						<b:column>
+							<h:outputText value="Localidade"/>
+							<b:inputText  required="true"  value="#{beanAluno.aluno.localidade}"/>
+						</b:column>
+						
+						<b:column>
+							<h:outputText value="UF"/>
+							<b:inputText  required="true"  value="#{beanAluno.aluno.uf}"/>
+						</b:column>
+						
+						<b:column >
+							
+							<b:commandButton  value="Novo" look="primary"   action="#{beanAluno.Novo}"/>
+							
+							<b:commandButton value="Salvar" look="success" action="#{beanAluno.Salvar}" />
+							<b:commandButton value="Deletar" look="danger" />
+							
+							
+						
+						</b:column>
+               		
+               		</b:panel>
+               </h:form>
                 
             </b:jumbotron>
         </b:container>

@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -33,6 +34,8 @@ public class Aluno implements Serializable{
 	private String mae;
 	@NotEmpty(message = "O campo CPF  é obrigatorio")
 	private String cpfResponsavel;
+	
+	private String naturalidade;
 	private String cep;
 	private String logradouro;
 	private String complemento;
@@ -41,8 +44,8 @@ public class Aluno implements Serializable{
 	private String uf;
 	
 	@Temporal(TemporalType.DATE)
-	@NotEmpty(message = "O campo data de nascimento obrigatorio")
-	private Date dataNascimento;
+	
+	private Date dataNascimento ;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private Sexo sexo;
@@ -161,6 +164,39 @@ public class Aluno implements Serializable{
 
 	public void setTurma(Turma turma) {
 		this.turma = turma;
+	}
+
+	public String getNaturalidade() {
+		return naturalidade;
+	}
+
+	public void setNaturalidade(String naturalidade) {
+		this.naturalidade = naturalidade;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Aluno other = (Aluno) obj;
+		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "Aluno [id=" + id + ", Nome=" + Nome + ", pai=" + pai + ", mae=" + mae + ", cpfResponsavel="
+				+ cpfResponsavel + ", naturalidade=" + naturalidade + ", cep=" + cep + ", logradouro=" + logradouro
+				+ ", complemento=" + complemento + ", bairro=" + bairro + ", localidade=" + localidade + ", uf=" + uf
+				+ ", dataNascimento=" + dataNascimento + ", sexo=" + sexo + ", turma=" + turma + "]";
 	}
 	
 	
