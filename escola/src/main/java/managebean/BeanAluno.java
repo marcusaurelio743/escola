@@ -1,13 +1,20 @@
 package managebean;
-import java.text.ParseException;
-
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.net.ssl.TrustManager;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Dao.daoSexo;
 import Dao.daoTurma;
@@ -79,6 +86,42 @@ public class BeanAluno {
 	public void setIdTurma(Long idTurma) {
 		this.idTurma = idTurma;
 	}
+	
+	public void pesquisaCep(AjaxBehaviorEvent event)  {
+		
+		try {
+			URL  url = new URL("https://viacep.com.br/ws/"+aluno.getCep()+"/json/");
+			
+			URLConnection connection = url.openConnection();
+			
+			InputStream is = connection.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is,"utf-8"));
+			
+			String cep = " ";
+			StringBuilder jsonCep = new StringBuilder();
+			
+			while((cep  = br.readLine()) != null) {
+				jsonCep.append(cep);
+				
+				
+				
+			}
+			ObjectMapper objectMapper = new ObjectMapper(); 
+			Aluno pessoaAux = objectMapper.readValue(jsonCep.toString(), Aluno.class);
+			
+			aluno.setCep(pessoaAux.getCep());
+			aluno.setLogradouro(pessoaAux.getLogradouro());
+			aluno.setComplemento(pessoaAux.getComplemento());
+			aluno.setBairro(pessoaAux.getBairro());
+			aluno.setLocalidade(pessoaAux.getLocalidade());
+			aluno.setUf(pessoaAux.getUf());
+			
+			
+		}catch (Exception ex) {
+			ex.printStackTrace();
+		}
+			
+		}
 
 	public String Salvar()  {
 		//converter o tipo de dados pois pega na tela o tipo long e é preciso converter para objeto
@@ -86,8 +129,23 @@ public class BeanAluno {
 		aluno.setSexo(daosexo.pesquisarId(Sexo.class, idSexo));
 		/*=========================================================*/
 		aluno = daoaluno.updadeMerge(aluno);
-		
+		alunos.add(aluno);
+		mostrarMsg("registro Salvo com sucesso!!!");
 		return "";
+	}
+	public String deletar() throws Exception {
+		daoaluno.deleteById(aluno);
+		alunos.remove(aluno);
+		this.Novo();
+		mostrarMsg("registro deletado");
+		return "";
+	}
+	
+	private void mostrarMsg(String msg) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage message = new FacesMessage(msg);
+		context.addMessage(msg, message);
+		
 	}
 	
 }

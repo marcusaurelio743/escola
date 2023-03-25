@@ -48,6 +48,12 @@
 						</b:column>
 						
 						<b:column>
+							<h:outputText value="Telefone"/>
+							<b:inputText  required="true"  value="#{beanAluno.aluno.telefone}"/>
+						</b:column>
+						
+						
+						<b:column>
 							<b:selectOneMenu value="#{beanAluno.idSexo}"  label="Informe o sexo">
             
             				<f:selectItems value="#{beanAluno.sexos}" var="sexo" itemValue="#{sexo.id}" itemLabel="#{sexo.sexo}" /> 
@@ -68,32 +74,36 @@
 						
 						<b:column>
 							<h:outputText value="CEP"/>
-							<b:inputText  required="true"  value="#{beanAluno.aluno.cep}"/>
+							<b:inputText  required="true"  value="#{beanAluno.aluno.cep}">
+								<f:ajax event="blur" execute="@this"
+		 			 listener="#{beanAluno.pesquisaCep}"
+		 			 render="logradouro complemento bairro localidade uf"/> 
+							</b:inputText>
 						</b:column>
 						
 						<b:column>
 							<h:outputText value="Logradouro"/>
-							<b:inputText  required="true"  value="#{beanAluno.aluno.logradouro}"/>
+							<b:inputText  required="true"  id="logradouro" value="#{beanAluno.aluno.logradouro}"/>
 						</b:column>
 						
 						<b:column>
 							<h:outputText value="Complemento"/>
-							<b:inputText  required="true"  value="#{beanAluno.aluno.complemento}"/>
+							<b:inputText  required="true" id="complemento"  value="#{beanAluno.aluno.complemento}"/>
 						</b:column>
 						
 						<b:column>
 							<h:outputText value="Bairro"/>
-							<b:inputText  required="true"  value="#{beanAluno.aluno.bairro}"/>
+							<b:inputText  required="true" id="bairro" value="#{beanAluno.aluno.bairro}"/>
 						</b:column>
 						
 						<b:column>
 							<h:outputText value="Localidade"/>
-							<b:inputText  required="true"  value="#{beanAluno.aluno.localidade}"/>
+							<b:inputText  required="true" id="localidade" value="#{beanAluno.aluno.localidade}"/>
 						</b:column>
 						
 						<b:column>
 							<h:outputText value="UF"/>
-							<b:inputText  required="true"  value="#{beanAluno.aluno.uf}"/>
+							<b:inputText  required="true" id="uf" value="#{beanAluno.aluno.uf}"/>
 						</b:column>
 						
 						<b:column >
@@ -101,13 +111,63 @@
 							<b:commandButton  value="Novo" look="primary"   action="#{beanAluno.Novo}"/>
 							
 							<b:commandButton value="Salvar" look="success" action="#{beanAluno.Salvar}" />
-							<b:commandButton value="Deletar" look="danger" />
+							<b:commandButton value="Deletar" look="danger" action="#{beanAluno.deletar}" />
 							
 							
 						
 						</b:column>
                		
                		</b:panel>
+               </h:form>
+               
+               <br/>
+		 <br/>
+		 <br/>
+               
+               <h:form>
+               	<b:dataTable value="#{beanAluno.alunos}" var="aluno">
+               	
+               	<b:column>
+		 			<f:facet name="header">ID</f:facet>
+		 			<h:outputText value="#{aluno.id}"/>
+		 			
+		 		</b:column>
+		 		
+		 		<b:column>
+		 			<f:facet name="header">nome</f:facet>
+		 			<h:outputText value="#{aluno.nome}"/>
+		 			
+		 		</b:column>
+		 		
+		 		<b:column>
+		 			<f:facet name="header">Pai</f:facet>
+		 			<h:outputText value="#{aluno.pai}"/>
+		 			
+		 		</b:column>
+		 		
+		 		<b:column>
+		 			<f:facet name="header">Mãe</f:facet>
+		 			<h:outputText value="#{aluno.mae}"/>
+		 			
+		 		</b:column>
+		 		
+		 		<b:column>
+		 			<f:facet name="header">CPF</f:facet>
+		 			<h:outputText value="#{aluno.cpfResponsavel}"/>
+		 			
+		 		</b:column>
+		 		
+		 		<h:column>
+		 			<f:facet name="header">Editar</f:facet>
+		 			<h:commandLink value="Editar"  >
+		 				
+		 				<f:setPropertyActionListener value="#{aluno}" target="#{beanAluno.aluno}"/>
+		 			</h:commandLink>
+		 		</h:column>
+               	
+               	
+               	</b:dataTable>
+               
                </h:form>
                 
             </b:jumbotron>

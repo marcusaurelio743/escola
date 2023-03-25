@@ -35,6 +35,9 @@ public class Aluno implements Serializable{
 	@NotEmpty(message = "O campo CPF  é obrigatorio")
 	private String cpfResponsavel;
 	
+	
+	private String telefone;
+	
 	private String naturalidade;
 	private String cep;
 	private String logradouro;
@@ -47,10 +50,10 @@ public class Aluno implements Serializable{
 	
 	private Date dataNascimento ;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.LAZY)
 	private Sexo sexo;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.LAZY)
 	
 	private Turma turma;
 
@@ -172,6 +175,12 @@ public class Aluno implements Serializable{
 
 	public void setNaturalidade(String naturalidade) {
 		this.naturalidade = naturalidade;
+	}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+	public String getTelefone() {
+		return telefone;
 	}
 
 	@Override
