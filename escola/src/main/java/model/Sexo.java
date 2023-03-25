@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Sexo implements Serializable {
@@ -19,6 +21,8 @@ public class Sexo implements Serializable {
 	private Long id;
 	
 	private String sexo;
+	
+	
 
 	public Long getId() {
 		return id;
@@ -52,6 +56,8 @@ public class Sexo implements Serializable {
 		Sexo other = (Sexo) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	
 	
 	
 

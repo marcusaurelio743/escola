@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Turma implements Serializable {
@@ -18,6 +20,8 @@ public class Turma implements Serializable {
 	private Long id;
 	
 	private String turma;
+	
+	
 
 	public Long getId() {
 		return id;
@@ -51,6 +55,8 @@ public class Turma implements Serializable {
 		Turma other = (Turma) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	
 	
 	
 

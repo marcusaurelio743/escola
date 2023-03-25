@@ -4,6 +4,7 @@
 	<class>model.Login</class>
 	<class>model.Sexo</class>
 	<class>model.Turma</class>
+	<class>model.Aluno</class>
 	
 	
 	<properties>
