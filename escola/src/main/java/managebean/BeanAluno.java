@@ -13,15 +13,20 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import Dao.daoAlunoSexoTurma;
 import Dao.daoSexo;
 import Dao.daoTurma;
 import Dao.daoaluno;
 import model.Aluno;
 import model.Sexo;
 import model.Turma;
+import util.AlunoSexoTurma;
+import util.ReportUtil;
 
 @ManagedBean(name = "beanAluno")
 @ViewScoped
@@ -29,6 +34,8 @@ public class BeanAluno {
 	private daoaluno daoaluno = new daoaluno();
 	private daoSexo daosexo = new daoSexo();
 	private daoTurma daoTurma = new daoTurma();
+	private daoAlunoSexoTurma daoalunoSexoTurma = new daoAlunoSexoTurma();
+	private AlunoSexoTurma alunoSexoTurma = new AlunoSexoTurma();
 	private Aluno aluno = new Aluno();
 	private List<Turma> turmas = new ArrayList<Turma>();
 	private List<Sexo> sexos = new ArrayList<Sexo>();
@@ -42,7 +49,9 @@ public class BeanAluno {
 		turmas = daoTurma.pesquisarObjetos(Turma.class);
 		alunos = daoaluno.pesquisarObjetos(Aluno.class);
 	}
-	
+	public AlunoSexoTurma getAlunoSexoTurma() {
+		return alunoSexoTurma;
+	}
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
@@ -134,7 +143,7 @@ public class BeanAluno {
 		return "";
 	}
 	public String deletar() throws Exception {
-		daoaluno.deleteById(aluno);
+		daoaluno.deleteById(aluno); 
 		alunos.remove(aluno);
 		this.Novo();
 		mostrarMsg("registro deletado");
@@ -146,6 +155,29 @@ public class BeanAluno {
 		FacesMessage message = new FacesMessage(msg);
 		context.addMessage(msg, message);
 		
+	}
+	
+	public String pdf() throws Exception {
+		alunoSexoTurma = daoalunoSexoTurma.pesquisarId(AlunoSexoTurma.class, aluno.getId());
+		List<AlunoSexoTurma> alunosList = new ArrayList<AlunoSexoTurma>();
+		alunosList.add(alunoSexoTurma);
+		
+		byte[] relatorio = null;
+		
+		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().
+				getExternalContext().getResponse();
+		ServletContext servletContext = (ServletContext) FacesContext
+			    .getCurrentInstance().getExternalContext().getContext();
+		
+		
+		relatorio = new ReportUtil().gerarMatriculaPdf(alunosList, "rel-matricula",servletContext );
+		response.setHeader("Content-Disposition", "attachment;filename=matricula.pdf");
+		response.setContentType("application/octet-stream");
+		response.getOutputStream().write(relatorio);
+		response.getOutputStream().flush();
+		FacesContext.getCurrentInstance().responseComplete();
+		System.out.println(alunoSexoTurma);
+		return "";
 	}
 	
 }
